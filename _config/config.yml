@@ -9,3 +9,9 @@ SilverStripe\Assets\File:
 SilverStripe\Assets\Image:
   extensions:
     - Goldfinch\FocusPointExtra\Extensions\ImageExtension
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra-style.css'
+  extra_requirements_javascript:
+    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra.js'

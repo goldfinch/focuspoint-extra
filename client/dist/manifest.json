@@ -1,0 +1,12 @@
+{
+  "resources/focupoint-extra-style.scss": {
+    "file": "resources/assets/focupoint-extra-style.css",
+    "isEntry": true,
+    "src": "resources/focupoint-extra-style.scss"
+  },
+  "resources/focupoint-extra.js": {
+    "file": "resources/assets/focupoint-extra.js",
+    "isEntry": true,
+    "src": "resources/focupoint-extra.js"
+  }
+}
