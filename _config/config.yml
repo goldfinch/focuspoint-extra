@@ -1,3 +1,11 @@
 ---
 Name: goldfinch-focuspoint-extra
 ---
+
+SilverStripe\Assets\File:
+  extensions:
+    - Goldfinch\FocusPointExtra\Extensions\FileFocusPointExtension
+
+SilverStripe\Assets\Image:
+  extensions:
+    - Goldfinch\FocusPointExtra\Extensions\ImageExtension
