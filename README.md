@@ -13,6 +13,10 @@ $image = $this->Image();
 $imageField =  ImageCoordsField::create('Image.FocusPoint', 'Image-_1_-FocusPointX', 'Image-_1_-FocusPointY', 'filename', $image, $image->getWidth(), $image->getHeight());
 $fields->insertAfter('Title', $imageField);
 
+
+...UploadFieldWithExtra::create('Image', 'Image', $fields, $this)->getFields(),
+
 ```
 
 Thanks to: https://github.com/jonom/silverstripe-image-coord & https://github.com/seppzzz/silverstripe-image-coord
+
