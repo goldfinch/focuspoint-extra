@@ -1,4 +1,29 @@
 ```
+private static $has_one = [
+    'Image' => Image::class,
+];
+
+private static $many_many = [
+    'Images' => Image::class,
+];
+
+private static $many_many_extraFields = [
+    'Images' => [
+        'SortOrder' => 'Int',
+    ]
+];
+
+private static $owns = [
+    'Image',
+    'Images',
+];
+
+...UploadFieldWithExtra::create('Image', 'Image', $fields, $this)->getFields(),
+...SortableUploadFieldWithExtra::create('Images', 'Images', $fields, $this)->getFields(),
+```
+
+
+```
 
 $grid = GridField::create('ImageAttributes', 'OG_Images', $this->OG_Images(),
 GridFieldManyManyFocusConfig::create());
