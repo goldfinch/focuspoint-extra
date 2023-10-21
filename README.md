@@ -16,6 +16,13 @@ $fields->insertAfter('Title', $imageField);
 
 ...UploadFieldWithExtra::create('Image', 'Image', $fields, $this)->getFields(),
 
+
+// $fields->addFieldsToTab(
+//   'Root.ImagesAttributes',
+//   [
+//       GridField::create('ImageAttributes', 'Images', $this->Images(), GridFieldManyManyFocusConfig::create(null, true))->addExtraClass('focuspoint-extra-attrs-grid'),
+//   ]
+// );
 ```
 
 Thanks to: https://github.com/jonom/silverstripe-image-coord & https://github.com/seppzzz/silverstripe-image-coord
