@@ -15,7 +15,3 @@ SilverStripe\Admin\LeftAndMain:
     - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra-style.css'
   extra_requirements_javascript:
     - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra.js'
-
-SilverStripe\ORM\DataObject:
-  extensions:
-    - Goldfinch\FocusPointExtra\Extensions\DataObjectExtension

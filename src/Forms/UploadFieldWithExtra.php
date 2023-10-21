@@ -2,14 +2,21 @@
 
 namespace Goldfinch\FocusPointExtra\Forms;
 
+use ReflectionMethod;
 use SilverStripe\Assets\Image;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
+use Goldfinch\FocusPointExtra\Forms\ImageCoordsField;
 
 class UploadFieldWithExtra
 {
     public static $fields;
     public static $parent;
     public static $name;
+    public static $title;
     public static $record;
 
     public function isOneOrMany()
@@ -37,6 +44,7 @@ class UploadFieldWithExtra
         $parent = $args[3];
 
         self::$name = $name;
+        self::$title = $title;
         self::$parent = $parent;
         self::$record = $parent;
 
@@ -55,9 +63,17 @@ class UploadFieldWithExtra
 
         if (self::$record::class == Image::class && self::$record->exists())
         {
-            $imageSettings = $fieldList->flattenFields()->fieldByName($name . '_ImageSettings');
+            // $imageSettings = $fieldList->flattenFields()->fieldByName($name . '_ImageSettings');
+            $imageSettings = self::getImageSettings();
 
-            self::$fields = [$field, $imageSettings];
+            if ($imageSettings)
+            {
+                self::$fields = [$field, $imageSettings];
+            }
+            else
+            {
+                self::$fields = [$field];
+            }
         }
         else
         {
@@ -68,6 +84,34 @@ class UploadFieldWithExtra
             $name . '_ImageSettings',
             $name
         ]);
+    }
+
+    public static function getImageSettings()
+    {
+        $r = new ReflectionMethod(ImageFormFactory::class, 'getSpecsMarkup');
+        $r->setAccessible(true);
+        $imageSpecs = $r->invoke(new ImageFormFactory(), self::$record);
+
+        return ToggleCompositeField::create(
+            self::$name .'_ImageSettings',
+            self::$title . ' Settings',
+            [
+                ImageCoordsField::create(
+                'Focus Point',
+                self::$name .'-_1_-FocusPointX',
+                self::$name .'-_1_-FocusPointY',
+                'filename',
+                self::$record,
+                self::$record->getWidth(),
+                self::$record->getHeight(),
+                false,
+                true
+                ),
+                TextField::create(self::$name . '-_1_-Title', 'Alt / Title'),
+                TextField::create(self::$name . '-_1_-Name', 'Filename'),
+                LiteralField::create(self::$name . 'ImageInfo', '<div class="form__fieldgroup form__field-holder field"><p><a href="'.self::$record->Link().'" target="_blank">Original image</a></p>' . $imageSpecs . '</div>'),
+            ]
+        );
     }
 
     public function getFields()

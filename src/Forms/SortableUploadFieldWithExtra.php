@@ -58,11 +58,18 @@ class SortableUploadFieldWithExtra
 
         if (self::$record->dataClass == Image::class && self::$record->count())
         {
-            $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $name . ' Settings',
-              GridField::create($name . '_ImageAttributes', $name, self::$record, GridFieldManyManyFocusConfig::create())->addExtraClass('focuspoint-extra-attrs-grid')
+            $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $title . ' Settings',
+              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create())->addExtraClass('focuspoint-extra-attrs-grid')
             );
 
-            self::$fields = [$field, $imagesSettings];
+            if ($imagesSettings)
+            {
+                self::$fields = [$field, $imagesSettings];
+            }
+            else
+            {
+                self::$fields = [$field];
+            }
         }
         else
         {
