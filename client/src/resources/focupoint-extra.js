@@ -17,7 +17,26 @@
 
         this._super();
       },
+      onchange: function() {
+        $('.uploadfield-item__remove-btn').off('click').click((e) => {
+
+          let imageHiddenField = $(e.currentTarget).closest('.entwine-uploadfield.uploadfield').find('input');
+
+          if (imageHiddenField.length) {
+
+            let fieldName = imageHiddenField.attr('name').split('[')[0];
+
+            let focusPointXField = $('input[name="' + fieldName + '-_1_-FocusPointX"]');
+
+            if (focusPointXField.length) {
+              focusPointXField.closest('.CompositeField.togglecomposite').remove()
+            }
+          }
+
+        })
+			}
     });
+
 
     // console.log('init')
 
@@ -38,10 +57,12 @@
 
 			onmatch: function () {
 				var $this = this; // Store a reference to the current element
+
     			setTimeout(function () {
 
         			$this.updateGrid(); // Call updateGrid after a 1-second delay
-    			}, 1200);
+
+    			}, 200);
 			},
 			getCoordField: function (axis) {
 				var fieldName = (axis.toUpperCase() === 'Y') ? this.data('yFieldName') : this.data('xFieldName');
@@ -123,4 +144,3 @@
 
 
 }(jQuery));
-
