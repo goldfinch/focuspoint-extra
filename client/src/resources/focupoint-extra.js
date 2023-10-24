@@ -114,9 +114,13 @@
 
     			}, 200);
 			},
-			getCoordField: function (axis) {
+			getFieldSelector: function (axis) {
 				var fieldName = (axis.toUpperCase() === 'Y') ? this.data('yFieldName') : this.data('xFieldName');
-				var fieldSelector = "input[name='" + fieldName + "']";
+				return "input[name='" + fieldName + "']";
+      },
+			getCoordField: function (axis) {
+				var fieldSelector = this.getFieldSelector(axis);
+        // console.log('LOOK FOR:', fieldName, this)
 				return this.closest('.image-coord-fieldgroup').find(fieldSelector);
 			},
 			roundXYValues: function (XYval) {
@@ -166,6 +170,23 @@
 				// Update focus point grid
 				this.updateGrid();
 				$(this).closest('form').addClass('changed');
+
+
+        // this is for grideditable field within modeladmin (to trigger change on focuspoint within the grid (image-editor.js))
+        if ($(this.getFieldSelector('x')).length) {
+          $(this.getFieldSelector('x')).each((key, element) => {
+            if (!$(element).hasClass('editable-column-field')) {
+              $(element).change();
+            }
+          });
+        }
+        if ($(this.getFieldSelector('y')).length) {
+          $(this.getFieldSelector('y')).each((key, element) => {
+            if (!$(element).hasClass('editable-column-field')) {
+              $(element).change();
+            }
+          });
+        }
 			},
             onmousemove: function (e) {
                 var grid = $(this);
