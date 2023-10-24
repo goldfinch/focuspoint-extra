@@ -67,8 +67,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [
       laravel({
         input: [
-          'resources/focupoint-extra-style.scss',
-          'resources/focupoint-extra.js',
+          'resources/focuspoint-extra-style.scss',
+          'resources/focuspoint-extra.js',
         ],
         refresh: true,
       }),

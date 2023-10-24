@@ -12,6 +12,6 @@ SilverStripe\Assets\Image:
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra-style.css'
+    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focuspoint-extra-style.css'
   extra_requirements_javascript:
-    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focupoint-extra.js'
+    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focuspoint-extra.js'

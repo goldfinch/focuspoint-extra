@@ -1,12 +1,12 @@
 {
-  "resources/focupoint-extra-style.scss": {
-    "file": "resources/assets/focupoint-extra-style.css",
+  "resources/focuspoint-extra-style.scss": {
+    "file": "resources/assets/focuspoint-extra-style.css",
     "isEntry": true,
-    "src": "resources/focupoint-extra-style.scss"
+    "src": "resources/focuspoint-extra-style.scss"
   },
-  "resources/focupoint-extra.js": {
-    "file": "resources/assets/focupoint-extra.js",
+  "resources/focuspoint-extra.js": {
+    "file": "resources/assets/focuspoint-extra.js",
     "isEntry": true,
-    "src": "resources/focupoint-extra.js"
+    "src": "resources/focuspoint-extra.js"
   }
 }
