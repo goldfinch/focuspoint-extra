@@ -60,7 +60,6 @@
       },
       onchange: function() {
 
-
         $('.uploadfield-item__remove-btn').off('click').click((e) => {
 
           let imageHiddenField = $(e.currentTarget).closest('.entwine-uploadfield.uploadfield').find('input');
@@ -127,7 +126,6 @@
 				return XYval.toFixed(4);
 			},
 			updateGrid: function () {
-
         let inGridItem = $('.ss-gridfield-item .image-coord-field');
         if (inGridItem.length) {
           inGridItem.closest('td').addClass('imagecoord image-coord-fieldgroup')
@@ -135,23 +133,31 @@
 
 				var grid = $(this);
 
-        // Get coordinates from text fields
-				var focusX = grid.getCoordField('x').val();
-				var focusY = grid.getCoordField('y').val();
+        var gridImage = new Image();
+        gridImage.src = grid.closest('.image-coord-field').find('img').attr('src');
+        gridImage.onload = () => {
 
-				// Calculate background positions
-				var backgroundWH = 11; // Width and height of grid background image
-				var bgOffset = Math.floor(-backgroundWH / 2);
-				var fieldW = grid.width();
-				var fieldH = grid.height();
-				var leftBG = this.data('cssGrid') ? bgOffset + (focusX * fieldW) : bgOffset + ((focusX / 2 + .5) * fieldW);
-				var topBG = this.data('cssGrid') ? bgOffset + (focusY * fieldH) : bgOffset + ((-focusY / 2 + .5) * fieldH);
-				// Line up crosshairs with click position
-				grid.css('background-position', leftBG + 'px ' + topBG + 'px');
+            setTimeout(() => {
 
-        // update fpaim
-        grid.find('.fpaim').css({'left' :  Math.round((Number(focusX) + 1) * 0.5 * fieldW), 'top': Math.round((Number(focusY) + 1) * 0.5 * fieldH), width: fieldW * 2, height: fieldH * 2});
+                // Get coordinates from text fields
+                var focusX = grid.getCoordField('x').val();
+                var focusY = grid.getCoordField('y').val();
 
+                // Calculate background positions
+                var backgroundWH = 11; // Width and height of grid background image
+                var bgOffset = Math.floor(-backgroundWH / 2);
+                var fieldW = grid.width();
+                var fieldH = grid.height();
+                var leftBG = this.data('cssGrid') ? bgOffset + (focusX * fieldW) : bgOffset + ((focusX / 2 + .5) * fieldW);
+                var topBG = this.data('cssGrid') ? bgOffset + (focusY * fieldH) : bgOffset + ((-focusY / 2 + .5) * fieldH);
+                // Line up crosshairs with click position
+                grid.css('background-position', leftBG + 'px ' + topBG + 'px');
+
+                // update fpaim
+                grid.find('.fpaim').css({'left' :  Math.round((Number(focusX) + 1) * 0.5 * fieldW), 'top': Math.round((Number(focusY) + 1) * 0.5 * fieldH), width: fieldW * 2, height: fieldH * 2});
+
+            }, 200)
+        };
 			},
 			onclick: function (e) {
 				var grid = $(this);
