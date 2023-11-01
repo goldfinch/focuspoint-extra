@@ -6,6 +6,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridFieldConfig;
+use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridField_ActionMenu;
@@ -15,12 +16,15 @@ use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use Symbiote\GridFieldExtensions\GridFieldConfigurablePaginator;
 
 class GridFieldManyManyFocusConfig extends GridFieldConfig
 {
     public function __construct($itemsPerPage = null, $sortable = false)
     {
         parent::__construct($itemsPerPage);
+
+        $this->removeComponentsByType(GridFieldPaginator::class);
 
         $this->addComponents(
             GridFieldToolbarHeader::create(),
@@ -31,11 +35,12 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
             GridFieldEditButton::create(),
             GridField_ActionMenu::create(),
             GridFieldEditableColumns::create(),
+            GridFieldConfigurablePaginator::create(50, [10, 50, 100, 200, 300]),
         );
 
         if ($sortable)
         {
-          $this->addComponent(GridFieldOrderableRows::create('SortOrder'));
+            $this->addComponent(GridFieldOrderableRows::create('SortOrder'));
         }
 
         $dataColumns = $this->getComponentByType(GridFieldDataColumns::class);
