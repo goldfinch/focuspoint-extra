@@ -111,7 +111,7 @@ class UploadFieldWithExtra
                 TextField::create(self::$name . '-_1_-Name', 'Filename'),
                 LiteralField::create(self::$name . 'ImageInfo', '<div class="form__fieldgroup form__field-holder field"><p><a href="'.self::$record->Link().'" target="_blank">Original image</a></p>' . $imageSpecs . '</div>'),
             ]
-        );
+        )->addExtraClass('mb-4');
     }
 
     public function getFields()

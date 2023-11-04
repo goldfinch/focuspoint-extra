@@ -60,7 +60,7 @@ class SortableUploadFieldWithExtra
         {
             $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $title . ' Settings',
               GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create())->addExtraClass('focuspoint-extra-attrs-grid')
-            );
+            )->addExtraClass('mb-4');
 
             if ($imagesSettings)
             {
