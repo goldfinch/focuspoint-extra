@@ -39,11 +39,7 @@ class SortableUploadFieldWithExtra
         $fieldList = $args[2];
         $parent = $args[3];
 
-        self::$name = $name;
-        self::$parent = $parent;
-        self::$record = $parent;
-
-        if (isset($args[4]))
+        if (isset($args[4]) && $args[4])
         {
             $field = $args[4];
         }
@@ -52,6 +48,13 @@ class SortableUploadFieldWithExtra
             $field = SortableUploadField::create($name, $title);
         }
 
+        // ? quick solution (not sure if the same as [4]?)
+        $extraFields = isset($args[5]) ? $args[5] : [];
+
+        self::$name = $name;
+        self::$parent = $parent;
+        self::$record = $parent;
+
         if ($this->isOneOrMany() == 'many') { // has
             self::$record = $parent->{$name}();
         }
@@ -59,7 +62,7 @@ class SortableUploadFieldWithExtra
         if (self::$record->dataClass == Image::class && self::$record->count())
         {
             $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $title . ' Settings',
-              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create())->addExtraClass('focuspoint-extra-attrs-grid')
+              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create(null, false, $extraFields))->addExtraClass('focuspoint-extra-attrs-grid')
             )->addExtraClass('mb-4');
 
             if ($imagesSettings)

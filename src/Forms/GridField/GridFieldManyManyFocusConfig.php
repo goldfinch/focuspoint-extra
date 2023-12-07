@@ -20,7 +20,7 @@ use Symbiote\GridFieldExtensions\GridFieldConfigurablePaginator;
 
 class GridFieldManyManyFocusConfig extends GridFieldConfig
 {
-    public function __construct($itemsPerPage = null, $sortable = false)
+    public function __construct($itemsPerPage = null, $sortable = false, $extraFields = [])
     {
         parent::__construct($itemsPerPage);
 
@@ -45,9 +45,10 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
 
         $dataColumns = $this->getComponentByType(GridFieldDataColumns::class);
 
-        $dataColumns->setDisplayFields([
+        $df = [
             'Title' => 'Alt / Title',
             'Name' => 'Filename',
+          ]+(isset($extraFields) && !empty($extraFields) ? $extraFields : [])+[
             'FocusPointX'=> 'FocusPointX',
             'FocusPointY'=> 'FocusPointY',
             'FocusPoint' => ['title' => 'Focus Point', 'field' => LiteralField::class, 'callback' => function($record, $columnName, $gridField) {
@@ -59,11 +60,15 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
                   return $record->getFocusPointGridEditableColumn($columnName, $gridPrefix);
               }
           }],
-        ]);
+        ];
+
+        $dataColumns->setDisplayFields($df);
 
         $dataEditableColumns = $this->getComponentByType(GridFieldEditableColumns::class);
 
-        $dataEditableColumns->setDisplayFields([
+        $extraKeysFields = isset($extraFields) && !empty($extraFields) ? array_combine(array_keys($extraFields), array_keys($extraFields)) : [];
+
+        $ec = [
             // 'Title'  => function($record, $column, $grid) {
             //   return TextField::create($column);
             // },
@@ -72,13 +77,16 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
             // },
             'Title' => 'Title',
             'Name' => 'Name',
+            ]+(isset($extraKeysFields) && !empty($extraKeysFields) ? $extraKeysFields : [])+[
             'FocusPointX' => function($record, $column, $grid) {
               return HiddenField::create('FocusPointX');
             },
             'FocusPointY'  => function($record, $column, $grid) {
               return HiddenField::create('FocusPointY');
             },
-        ]);
+        ];
+
+        $dataEditableColumns->setDisplayFields($ec);
 
         $this->extend('updateConfig');
     }
