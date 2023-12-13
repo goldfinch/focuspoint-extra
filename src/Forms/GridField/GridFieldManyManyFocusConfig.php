@@ -20,7 +20,7 @@ use Symbiote\GridFieldExtensions\GridFieldConfigurablePaginator;
 
 class GridFieldManyManyFocusConfig extends GridFieldConfig
 {
-    public function __construct($itemsPerPage = null, $sortable = 'SortOrder', $extraFields = [])
+    public function __construct($itemsPerPage = null, $sortable = 'SortOrder', $extraFields = [], $managedModel = null)
     {
         parent::__construct($itemsPerPage);
 
@@ -40,7 +40,18 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
 
         if ($sortable)
         {
-            $this->addComponent(GridFieldOrderableRows::create($sortable));
+            if ($managedModel)
+            {
+                if (isset(ss_config($managedModel, 'db')[$sortable]) ||
+                  in_array($sortable, ss_config($managedModel, 'db')))
+                {
+                    $this->addComponent(GridFieldOrderableRows::create($sortable));
+                }
+            }
+            else
+            {
+                $this->addComponent(GridFieldOrderableRows::create($sortable));
+            }
         }
 
         $dataColumns = $this->getComponentByType(GridFieldDataColumns::class);
