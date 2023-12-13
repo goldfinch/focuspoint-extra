@@ -9,7 +9,7 @@ private static $many_many = [
 
 private static $many_many_extraFields = [
     'Images' => [
-        'SortOrder' => 'Int',
+        'SortExtra' => 'Int',
     ]
 ];
 
