@@ -46,6 +46,30 @@ class SortableUploadFieldWithExtra
         else
         {
             $field = SortableUploadField::create($name, $title);
+
+            if (isset($parent->$name()->extraFields) && !empty($parent->$name()->extraFields))
+            {
+                $extraFields = $parent->$name()->extraFields;
+                $sort = null;
+
+                if (isset($extraFields['SortExtra']))
+                {
+                    $sort = 'SortExtra';
+                }
+                else if (isset($extraFields['SortOrder']))
+                {
+                    $sort = 'SortOrder';
+                }
+                else if (isset($extraFields['Sort']))
+                {
+                    $sort = 'Sort';
+                }
+
+                if ($sort)
+                {
+                    $field->setSortColumn($sort);
+                }
+            }
         }
 
         // ? quick solution (not sure if the same as [4]?)
