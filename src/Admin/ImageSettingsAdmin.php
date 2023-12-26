@@ -6,7 +6,7 @@ use SilverStripe\Assets\Image;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\GridField\GridFieldConfig;
-use Goldfinch\Seo\Forms\GridField\MetaEditorFocusPointColumn;
+use Goldfinch\ImageSettings\Forms\GridField\MetaEditorFocusPointColumn;
 use Goldfinch\ImageSettings\Forms\GridField\GridFieldManyManyFocusConfig;
 
 class ImageSettingsAdmin extends ModelAdmin
