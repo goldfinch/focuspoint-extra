@@ -13,7 +13,7 @@ class ImageEditorAdmin extends ModelAdmin
 {
     private static $url_segment = 'image-editor';
 
-    private static $menu_title = 'Image settings';
+    private static $menu_title = 'Image editor';
 
     private static $managed_models = [
         Image::class => [
