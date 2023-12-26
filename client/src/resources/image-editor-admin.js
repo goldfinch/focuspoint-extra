@@ -1,7 +1,5 @@
 (function ($) {
   $.entwine('ss', ($) => {
-    /* counter */
-    $('body').append($('<div id="AltEditorCharCounter"></div>').hide());
 
     $(
       '.image-editor fieldset.grid .ss-gridfield-item input, .image-editor fieldset.grid .ss-gridfield-item textarea',
@@ -13,19 +11,13 @@
         }
       },
 
-      onkeyup() {
-        $('#AltEditorCharCounter').html($(this).val().trim().length);
-      },
+      onkeyup() {},
 
       onfocusin() {
         $('.cms-edit-form').removeClass('changed');
-        $('#AltEditorCharCounter').show();
-        $('#AltEditorCharCounter').html($(this).val().trim().length);
       },
 
-      onfocusout() {
-        $('#AltEditorCharCounter').hide();
-      },
+      onfocusout() {},
 
       onchange() {
         // prevent changes to the form / popup
