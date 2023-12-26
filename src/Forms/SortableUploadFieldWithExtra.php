@@ -1,12 +1,12 @@
 <?php
 
-namespace Goldfinch\FocusPointExtra\Forms;
+namespace Goldfinch\ImageSettings\Forms;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\ToggleCompositeField;
 use Bummzack\SortableFile\Forms\SortableUploadField;
-use Goldfinch\FocusPointExtra\Forms\GridField\GridFieldManyManyFocusConfig;
+use Goldfinch\ImageSettings\Forms\GridField\GridFieldManyManyFocusConfig;
 
 class SortableUploadFieldWithExtra
 {
@@ -86,7 +86,7 @@ class SortableUploadFieldWithExtra
         if (self::$record->dataClass == Image::class && self::$record->count())
         {
             $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $title . ' Settings',
-              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create(null, false, $extraFields))->addExtraClass('focuspoint-extra-attrs-grid')
+              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create(null, false, $extraFields))->addExtraClass('image-settings-attrs-grid')
             )->addExtraClass('mb-4');
 
             if ($imagesSettings)

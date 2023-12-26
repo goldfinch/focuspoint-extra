@@ -1,17 +1,17 @@
 ---
-Name: goldfinch-focuspoint-extra
+Name: goldfinch-image-settings
 ---
 
 SilverStripe\Assets\File:
   extensions:
-    - Goldfinch\FocusPointExtra\Extensions\FileFocusPointExtension
+    - Goldfinch\ImageSettings\Extensions\FileFocusPointExtension
 
 SilverStripe\Assets\Image:
   extensions:
-    - Goldfinch\FocusPointExtra\Extensions\ImageExtension
+    - Goldfinch\ImageSettings\Extensions\ImageExtension
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focuspoint-extra-style.css'
+    - 'goldfinch/image-settings:client/dist/resources/assets/image-settings-style.css'
   extra_requirements_javascript:
-    - 'goldfinch/focuspoint-extra:client/dist/resources/assets/focuspoint-extra.js'
+    - 'goldfinch/image-settings:client/dist/resources/assets/image-settings.js'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\FocusPointExtra\Forms;
+namespace Goldfinch\ImageSettings\Forms;
 
 use ReflectionMethod;
 use SilverStripe\Assets\Image;
@@ -9,7 +9,7 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
-use Goldfinch\FocusPointExtra\Forms\ImageCoordsField;
+use Goldfinch\ImageSettings\Forms\ImageCoordsField;
 
 class UploadFieldWithExtra
 {

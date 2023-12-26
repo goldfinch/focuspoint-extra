@@ -3,10 +3,10 @@ export default function initCfg(command, mode, ssrBuild) {
   const dev = command === 'serve';
   const host = 'silverstripe.lh';
 
-  const buildAssetsDir = '../../../dist/focuspointextra/assets/'
+  const buildAssetsDir = '../../../dist/ImageSettings/assets/'
 
-  const focuspointextra = dev ? '../../../dist/focuspointextra/assets/focuspointextra/' : ''
-  const focuspointextra_images = dev ? './images/' : (buildAssetsDir + 'focuspointextra/images/');
+  const ImageSettings = dev ? '../../../dist/ImageSettings/assets/ImageSettings/' : ''
+  const ImageSettings_images = dev ? './images/' : (buildAssetsDir + 'ImageSettings/images/');
 
   return {
 
@@ -14,8 +14,8 @@ export default function initCfg(command, mode, ssrBuild) {
     certs: '/Applications/MAMP/Library/OpenSSL/certs/' + host,
 
     sassAdditionalData: `
-      $focuspointextra: '${focuspointextra}';
-      $focuspointextra_images: '${focuspointextra_images}';
+      $ImageSettings: '${ImageSettings}';
+      $ImageSettings_images: '${ImageSettings_images}';
     `,
   }
 }

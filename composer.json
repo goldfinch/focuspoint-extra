@@ -1,5 +1,5 @@
 {
-    "name": "goldfinch/focuspoint-extra",
+    "name": "goldfinch/image-settings",
     "description": "",
     "type": "silverstripe-vendormodule",
     "keywords": [
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Goldfinch\\FocusPointExtra\\": "src/"
+            "Goldfinch\\ImageSettings\\": "src/"
         }
     },
     "minimum-stability": "dev",

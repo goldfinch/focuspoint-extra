@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\FocusPointExtra\Forms\GridField;
+namespace Goldfinch\ImageSettings\Forms\GridField;
 
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HiddenField;

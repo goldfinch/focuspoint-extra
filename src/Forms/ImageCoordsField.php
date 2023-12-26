@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\FocusPointExtra\Forms;
+namespace Goldfinch\ImageSettings\Forms;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\View\ArrayData;
@@ -32,7 +32,7 @@ class ImageCoordsField extends FieldGroup
         if ($onlyCanvas)
         {
             $fields = [
-                LiteralField::create('ImageCoordsGrid', $previewImage->renderWith('Goldfinch\FocusPointExtra\ImageCoordsGrid')),
+                LiteralField::create('ImageCoordsGrid', $previewImage->renderWith('Goldfinch\ImageSettings\ImageCoordsGrid')),
                 HiddenField::create($XFieldName, $XFieldName, $image->FocusPointX),
                 HiddenField::create($YFieldName , $YFieldName, $image->FocusPointY),
             ];
@@ -41,7 +41,7 @@ class ImageCoordsField extends FieldGroup
         {
             $fields = [
                 $sumField = LiteralField::create($xySumFieldName, '<br><div class="sumField">mouseX 0.0 / mouseY 0.0</div><br>'),
-                LiteralField::create('ImageCoordsGrid', $previewImage->renderWith('Goldfinch\FocusPointExtra\ImageCoordsGrid')),
+                LiteralField::create('ImageCoordsGrid', $previewImage->renderWith('Goldfinch\ImageSettings\ImageCoordsGrid')),
                 TextField::create($XFieldName, $XFieldName,  $image->FocusPointX),
                 TextField::create($YFieldName , $YFieldName,  $image->FocusPointY),
             ];
