@@ -83,7 +83,7 @@ class EditableSortableUploadField
         ) {
             $imagesSettings = ToggleCompositeField::create(
                 $name . '_ImageAttributes',
-                $title . ' Settings',
+                $title . ' Editor',
                 GridField::create(
                     $name . '_ImageAttributes',
                     $title,

@@ -82,7 +82,7 @@ class EditableUploadField
 
         return ToggleCompositeField::create(
             self::$name . '_ImageEditor',
-            self::$title . ' Settings',
+            self::$title . ' Editor',
             [
                 ImageCoordsField::create(
                     'Focus Point',
