@@ -20,8 +20,12 @@ use Symbiote\GridFieldExtensions\GridFieldConfigurablePaginator;
 
 class GridFieldManyManyFocusConfig extends GridFieldConfig
 {
-    public function __construct($itemsPerPage = null, $sortable = 'SortOrder', $extraFields = [], $managedModel = null)
-    {
+    public function __construct(
+        $itemsPerPage = null,
+        $sortable = 'SortOrder',
+        $extraFields = [],
+        $managedModel = null,
+    ) {
         parent::__construct($itemsPerPage);
 
         $this->removeComponentsByType(GridFieldPaginator::class);
@@ -38,18 +42,17 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
             GridFieldConfigurablePaginator::create(50, [10, 50, 100, 200, 300]),
         );
 
-        if ($sortable)
-        {
-            if ($managedModel)
-            {
-                if (isset(ss_config($managedModel, 'db')[$sortable]) ||
-                  in_array($sortable, ss_config($managedModel, 'db')))
-                {
-                    $this->addComponent(GridFieldOrderableRows::create($sortable));
+        if ($sortable) {
+            if ($managedModel) {
+                if (
+                    isset(ss_config($managedModel, 'db')[$sortable]) ||
+                    in_array($sortable, ss_config($managedModel, 'db'))
+                ) {
+                    $this->addComponent(
+                        GridFieldOrderableRows::create($sortable),
+                    );
                 }
-            }
-            else
-            {
+            } else {
                 $this->addComponent(GridFieldOrderableRows::create($sortable));
             }
         }
@@ -59,25 +62,50 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
         $df = [
             'Title' => 'Alt / Title',
             'Name' => 'Filename',
-          ]+(isset($extraFields) && !empty($extraFields) ? $extraFields : [])+[
-            'FocusPointX'=> 'FocusPointX',
-            'FocusPointY'=> 'FocusPointY',
-            'FocusPoint' => ['title' => 'Focus Point', 'field' => LiteralField::class, 'callback' => function($record, $columnName, $gridField) {
+        ] +
+            (isset($extraFields) && !empty($extraFields)
+                ? $extraFields
+                : []) + [
+                'FocusPointX' => 'FocusPointX',
+                'FocusPointY' => 'FocusPointY',
+                'FocusPoint' => [
+                    'title' => 'Focus Point',
+                    'field' => LiteralField::class,
+                    'callback' => function ($record, $columnName, $gridField) {
+                        if (
+                            in_array(
+                                'ss-gridfield-editable',
+                                array_values($gridField->extraClasses),
+                            )
+                        ) {
+                            $gridPrefix =
+                                $gridField->getName() .
+                                '[GridFieldEditableColumns][' .
+                                $record->ID .
+                                ']';
 
-              if (in_array('ss-gridfield-editable', array_values($gridField->extraClasses)))
-              {
-                  $gridPrefix = $gridField->getName() . '[GridFieldEditableColumns]['.$record->ID.']';
-
-                  return $record->getFocusPointGridEditableColumn($columnName, $gridPrefix);
-              }
-          }],
-        ];
+                            return $record->getFocusPointGridEditableColumn(
+                                $columnName,
+                                $gridPrefix,
+                            );
+                        }
+                    },
+                ],
+            ];
 
         $dataColumns->setDisplayFields($df);
 
-        $dataEditableColumns = $this->getComponentByType(GridFieldEditableColumns::class);
+        $dataEditableColumns = $this->getComponentByType(
+            GridFieldEditableColumns::class,
+        );
 
-        $extraKeysFields = isset($extraFields) && !empty($extraFields) ? array_combine(array_keys($extraFields), array_keys($extraFields)) : [];
+        $extraKeysFields =
+            isset($extraFields) && !empty($extraFields)
+                ? array_combine(
+                    array_keys($extraFields),
+                    array_keys($extraFields),
+                )
+                : [];
 
         $ec = [
             // 'Title'  => function($record, $column, $grid) {
@@ -88,14 +116,17 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
             // },
             'Title' => 'Title',
             'Name' => 'Name',
-            ]+(isset($extraKeysFields) && !empty($extraKeysFields) ? $extraKeysFields : [])+[
-            'FocusPointX' => function($record, $column, $grid) {
-              return HiddenField::create('FocusPointX');
-            },
-            'FocusPointY'  => function($record, $column, $grid) {
-              return HiddenField::create('FocusPointY');
-            },
-        ];
+        ] +
+            (isset($extraKeysFields) && !empty($extraKeysFields)
+                ? $extraKeysFields
+                : []) + [
+                'FocusPointX' => function ($record, $column, $grid) {
+                    return HiddenField::create('FocusPointX');
+                },
+                'FocusPointY' => function ($record, $column, $grid) {
+                    return HiddenField::create('FocusPointY');
+                },
+            ];
 
         $dataEditableColumns->setDisplayFields($ec);
 

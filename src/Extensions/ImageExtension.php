@@ -11,6 +11,16 @@ class ImageExtension extends DataExtension
     {
         $record = $this->owner;
 
-        return ImageCoordsField::create($columnName, $gridPrefix . '[' . $columnName . 'X' . ']',  $gridPrefix . '[' . $columnName . 'Y' . ']', 'filename', $record, $record->getWidth(), $record->getHeight(), false, true);
+        return ImageCoordsField::create(
+            $columnName,
+            $gridPrefix . '[' . $columnName . 'X' . ']',
+            $gridPrefix . '[' . $columnName . 'Y' . ']',
+            'filename',
+            $record,
+            $record->getWidth(),
+            $record->getHeight(),
+            false,
+            true,
+        );
     }
 }

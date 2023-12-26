@@ -39,34 +39,27 @@ class SortableUploadFieldWithSettings
         $fieldList = $args[2];
         $parent = $args[3];
 
-        if (isset($args[4]) && $args[4])
-        {
+        if (isset($args[4]) && $args[4]) {
             $field = $args[4];
-        }
-        else
-        {
+        } else {
             $field = SortableUploadField::create($name, $title);
 
-            if (isset($parent->$name()->extraFields) && !empty($parent->$name()->extraFields))
-            {
+            if (
+                isset($parent->$name()->extraFields) &&
+                !empty($parent->$name()->extraFields)
+            ) {
                 $extraFields = $parent->$name()->extraFields;
                 $sort = null;
 
-                if (isset($extraFields['SortExtra']))
-                {
+                if (isset($extraFields['SortExtra'])) {
                     $sort = 'SortExtra';
-                }
-                else if (isset($extraFields['SortOrder']))
-                {
+                } elseif (isset($extraFields['SortOrder'])) {
                     $sort = 'SortOrder';
-                }
-                else if (isset($extraFields['Sort']))
-                {
+                } elseif (isset($extraFields['Sort'])) {
                     $sort = 'Sort';
                 }
 
-                if ($sort)
-                {
+                if ($sort) {
                     $field->setSortColumn($sort);
                 }
             }
@@ -79,34 +72,40 @@ class SortableUploadFieldWithSettings
         self::$parent = $parent;
         self::$record = $parent;
 
-        if ($this->isOneOrMany() == 'many') { // has
+        if ($this->isOneOrMany() == 'many') {
+            // has
             self::$record = $parent->{$name}();
         }
 
-        if (self::$record->dataClass == Image::class && self::$record->count())
-        {
-            $imagesSettings = ToggleCompositeField::create($name . '_ImageAttributes', $title . ' Settings',
-              GridField::create($name . '_ImageAttributes', $title, self::$record, GridFieldManyManyFocusConfig::create(null, false, $extraFields))->addExtraClass('image-settings-attrs-grid')
+        if (
+            self::$record->dataClass == Image::class &&
+            self::$record->count()
+        ) {
+            $imagesSettings = ToggleCompositeField::create(
+                $name . '_ImageAttributes',
+                $title . ' Settings',
+                GridField::create(
+                    $name . '_ImageAttributes',
+                    $title,
+                    self::$record,
+                    GridFieldManyManyFocusConfig::create(
+                        null,
+                        false,
+                        $extraFields,
+                    ),
+                )->addExtraClass('image-settings-attrs-grid'),
             )->addExtraClass('mb-4');
 
-            if ($imagesSettings)
-            {
+            if ($imagesSettings) {
                 self::$fields = [$field, $imagesSettings];
-            }
-            else
-            {
+            } else {
                 self::$fields = [$field];
             }
-        }
-        else
-        {
+        } else {
             self::$fields = [$field];
         }
 
-        $fieldList->removeByName([
-            $name . '_ImageAttributes',
-            $name
-        ]);
+        $fieldList->removeByName([$name . '_ImageAttributes', $name]);
     }
 
     public function getFields()

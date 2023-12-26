@@ -2,9 +2,7 @@
     "name": "goldfinch/image-settings",
     "description": "",
     "type": "silverstripe-vendormodule",
-    "keywords": [
-        "silverstripe"
-    ],
+    "keywords": ["silverstripe"],
     "license": "MIT",
     "authors": [
         {
@@ -21,9 +19,7 @@
         "jonom/focuspoint": "^5.0"
     },
     "extra": {
-        "expose": [
-            "client/dist"
-        ]
+        "expose": ["client/dist"]
     },
     "autoload": {
         "psr-4": {

@@ -1,7 +1,6 @@
 ---
 Name: goldfinch-image-settings
 ---
-
 SilverStripe\Assets\File:
   extensions:
     - Goldfinch\ImageSettings\Extensions\FileFocusPointExtension
@@ -12,6 +11,6 @@ SilverStripe\Assets\Image:
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - 'goldfinch/image-settings:client/dist/resources/assets/image-settings-style.css'
+    - "goldfinch/image-settings:client/dist/resources/assets/image-settings-style.css"
   extra_requirements_javascript:
-    - 'goldfinch/image-settings:client/dist/resources/assets/image-settings.js'
+    - "goldfinch/image-settings:client/dist/resources/assets/image-settings.js"

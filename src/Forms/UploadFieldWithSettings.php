@@ -48,12 +48,9 @@ class UploadFieldWithSettings
         self::$parent = $parent;
         self::$record = $parent;
 
-        if (isset($args[4]))
-        {
+        if (isset($args[4])) {
             $field = $args[4];
-        }
-        else
-        {
+        } else {
             $field = UploadField::create($name, $title);
         }
 
@@ -61,29 +58,20 @@ class UploadFieldWithSettings
             self::$record = $parent->{$name}();
         }
 
-        if (self::$record::class == Image::class && self::$record->exists())
-        {
+        if (self::$record::class == Image::class && self::$record->exists()) {
             // $imageSettings = $fieldList->flattenFields()->fieldByName($name . '_ImageSettings');
             $imageSettings = self::getImageSettings();
 
-            if ($imageSettings)
-            {
+            if ($imageSettings) {
                 self::$fields = [$field, $imageSettings];
-            }
-            else
-            {
+            } else {
                 self::$fields = [$field];
             }
-        }
-        else
-        {
+        } else {
             self::$fields = [$field];
         }
 
-        $fieldList->removeByName([
-            $name . '_ImageSettings',
-            $name
-        ]);
+        $fieldList->removeByName([$name . '_ImageSettings', $name]);
     }
 
     public static function getImageSettings()
@@ -93,24 +81,31 @@ class UploadFieldWithSettings
         $imageSpecs = $r->invoke(new ImageFormFactory(), self::$record);
 
         return ToggleCompositeField::create(
-            self::$name .'_ImageSettings',
+            self::$name . '_ImageSettings',
             self::$title . ' Settings',
             [
                 ImageCoordsField::create(
-                'Focus Point',
-                self::$name .'-_1_-FocusPointX',
-                self::$name .'-_1_-FocusPointY',
-                'filename',
-                self::$record,
-                self::$record->getWidth(),
-                self::$record->getHeight(),
-                false,
-                true
+                    'Focus Point',
+                    self::$name . '-_1_-FocusPointX',
+                    self::$name . '-_1_-FocusPointY',
+                    'filename',
+                    self::$record,
+                    self::$record->getWidth(),
+                    self::$record->getHeight(),
+                    false,
+                    true,
                 ),
                 TextField::create(self::$name . '-_1_-Title', 'Alt / Title'),
                 TextField::create(self::$name . '-_1_-Name', 'Filename'),
-                LiteralField::create(self::$name . 'ImageInfo', '<div class="form__fieldgroup form__field-holder field"><p><a href="'.self::$record->Link().'" target="_blank">Original image</a></p>' . $imageSpecs . '</div>'),
-            ]
+                LiteralField::create(
+                    self::$name . 'ImageInfo',
+                    '<div class="form__fieldgroup form__field-holder field"><p><a href="' .
+                        self::$record->Link() .
+                        '" target="_blank">Original image</a></p>' .
+                        $imageSpecs .
+                        '</div>',
+                ),
+            ],
         )->addExtraClass('mb-4');
     }
 
