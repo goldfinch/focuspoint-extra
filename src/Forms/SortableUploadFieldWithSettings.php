@@ -8,7 +8,7 @@ use SilverStripe\Forms\ToggleCompositeField;
 use Bummzack\SortableFile\Forms\SortableUploadField;
 use Goldfinch\ImageSettings\Forms\GridField\GridFieldManyManyFocusConfig;
 
-class SortableUploadFieldWithExtra
+class SortableUploadFieldWithSettings
 {
     public static $fields;
     public static $parent;
