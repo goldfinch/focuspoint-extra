@@ -82,7 +82,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
 
         return [
             'class' => count($errors)
-                ? 'has-warning meta-editor-error ' . implode(' ', $errors)
+                ? 'has-warning image-editor-error ' . implode(' ', $errors)
                 : 'has-success',
         ];
     }
@@ -105,16 +105,16 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
         $errors = [];
 
         if (strlen($record->{$title_field}) < $title_min) {
-            $errors[] = 'meta-editor-error-too-short';
+            $errors[] = 'image-editor-error-too-short';
         } elseif (strlen($record->{$title_field}) > $title_max) {
-            $errors[] = 'meta-editor-error-too-long';
+            $errors[] = 'image-editor-error-too-long';
         } elseif (
             $record->{$title_field} &&
             self::getAllEditableRecords()
                 ->filter($title_field, $record->{$title_field})
                 ->count() > 1
         ) {
-            $errors[] = 'meta-editor-error-duplicate';
+            $errors[] = 'image-editor-error-duplicate';
         }
 
         return $errors;
@@ -179,7 +179,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
      */
     public function getHTMLFragments($gridField)
     {
-        $gridField->addExtraClass('meta-editor');
+        $gridField->addExtraClass('image-editor');
     }
 
     /**
@@ -364,8 +364,8 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
         $title_min = 2;
         $title_max = 180;
 
-        return '<div class="meta-editor-errors">' .
-            '<span class="meta-editor-message meta-editor-message-too-short">' .
+        return '<div class="image-editor-errors">' .
+            '<span class="image-editor-message image-editor-message-too-short">' .
             _t(
                 self::class . '.TITLE_TOO_SHORT',
                 'Too short: should be between {title_min} &amp; {title_max} characters.',
@@ -375,7 +375,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
                 ],
             ) .
             '</span>' .
-            '<span class="meta-editor-message meta-editor-message-too-long">' .
+            '<span class="image-editor-message image-editor-message-too-long">' .
             _t(
                 self::class . '.TITLE_TOO_LONG',
                 'Too long: should be between {title_min} &amp; {title_max} characters.',
@@ -385,7 +385,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
                 ],
             ) .
             '</span>' .
-            '<span class="meta-editor-message meta-editor-message-duplicate">' .
+            '<span class="image-editor-message image-editor-message-duplicate">' .
             _t(
                 self::class . '.TITLE_DUPLICATE',
                 'This title is a duplicate of another page.',

@@ -106,10 +106,16 @@
   }
 
   th.main.col-FocusPoint,
-  .has-warning.meta-editor-error-too-short,
-  td.col-FocusPoint {
+  .has-warning.meta-image-error-too-short,
+  td.col-FocusPoint,
+  td:nth-of-type(5) {
     width: 230px;
     text-align: center;
+  }
+
+  td {
+    line-height: 0 !important;
+    color: transparent !important;
   }
 
   .col-action_SetOrderName button,
