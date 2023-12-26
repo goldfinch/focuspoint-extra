@@ -58,7 +58,9 @@ class EditableUploadField
             self::$record = $parent->{$name}();
         }
 
-        if (self::$record::class == Image::class && self::$record->exists()) {
+        $r = self::$record;
+
+        if ($r::class == Image::class && $r->exists()) {
             // $ImageEditor = $fieldList->flattenFields()->fieldByName($name . '_ImageEditor');
             $ImageEditor = self::getImageEditor();
 

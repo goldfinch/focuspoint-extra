@@ -132,24 +132,21 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
     public function getColumnContent($gridField, $record, $columnName)
     {
         if ('MetaEditorFocusPointColumn' == $columnName) {
-            $value = $gridField->getDataFieldValue(
-                $record,
-                'Title',
-            );
+            $value = $gridField->getDataFieldValue($record, 'Title');
             // if permissions {
 
-                $title_field = TextField::create('MetaTitle');
-                $title_field->setName(
-                    $this->getFieldName(
-                        $title_field->getName(),
-                        $gridField,
-                        $record,
-                    ),
-                );
-                $title_field->setValue($value);
-                $title_field->addExtraClass('form-control');
+            $title_field = TextField::create('MetaTitle');
+            $title_field->setName(
+                $this->getFieldName(
+                    $title_field->getName(),
+                    $gridField,
+                    $record,
+                ),
+            );
+            $title_field->setValue($value);
+            $title_field->addExtraClass('form-control');
 
-                return $title_field->Field() . $this->getErrorMessages();
+            return $title_field->Field() . $this->getErrorMessages();
             // }
 
             // return '<span class="non-editable">Meta tags not editable</span>';

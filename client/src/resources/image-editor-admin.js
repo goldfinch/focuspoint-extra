@@ -1,6 +1,5 @@
 (function ($) {
   $.entwine('ss', ($) => {
-
     $(
       '.image-editor fieldset.grid .ss-gridfield-item input, .image-editor fieldset.grid .ss-gridfield-item textarea',
     ).entwine({

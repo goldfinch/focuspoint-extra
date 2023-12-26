@@ -6,6 +6,7 @@
   display: inline-block;
   margin: 0;
   overflow: hidden;
+  cursor: pointer;
   border-radius: 3px;
 }
 
@@ -73,13 +74,14 @@
 
 .cms-edit-form.image-editor,
 .image-editor-attrs-grid {
-
   td:nth-of-type(1) {
     width: 50%;
   }
+
   td:nth-of-type(2) {
     width: calc(50% - 300px);
   }
+
   td:nth-of-type(3) {
     width: 300px;
   }
@@ -89,6 +91,7 @@
   td.col-Name {
     position: relative;
     color: transparent;
+    cursor: default;
   }
 
   td.col-Title input,
@@ -111,6 +114,7 @@
   td:nth-of-type(5) {
     width: 230px;
     text-align: center;
+    cursor: default;
   }
 
   td {
