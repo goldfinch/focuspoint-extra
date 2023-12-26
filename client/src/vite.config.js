@@ -67,6 +67,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         input: [
           'resources/image-settings-style.scss',
           'resources/image-settings.js',
+          'resources/image-settings-admin.js',
         ],
         refresh: true,
       }),

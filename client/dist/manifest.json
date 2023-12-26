@@ -1,4 +1,9 @@
 {
+  "resources/image-settings-admin.js": {
+    "file": "resources/assets/image-settings-admin.js",
+    "isEntry": true,
+    "src": "resources/image-settings-admin.js"
+  },
   "resources/image-settings-style.scss": {
     "file": "resources/assets/image-settings-style.css",
     "isEntry": true,
