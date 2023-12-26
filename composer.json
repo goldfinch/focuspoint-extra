@@ -17,7 +17,7 @@
         "bummzack/sortablefile": "^2.0",
         "symbiote/silverstripe-gridfieldextensions": "^4",
         "stevie-mayhew/hasoneedit": "^2.2",
-        "jonom/focuspoint": "^5.0",
+        "jonom/focuspoint": "^5.0"
     },
     "extra": {
         "expose": ["client/dist"]
