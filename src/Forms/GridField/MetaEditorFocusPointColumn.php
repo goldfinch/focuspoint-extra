@@ -7,7 +7,6 @@ use SilverStripe\Assets\Image;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Forms\TextField;
-use Axllent\MetaEditor\MetaEditor;
 use TractorCow\Fluent\Model\Locale;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Config\Config;
@@ -16,12 +15,10 @@ use SilverStripe\Core\Injector\Injector;
 use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Control\HTTPResponse_Exception;
-use Axllent\MetaEditor\Lib\MetaEditorPermissions;
 use SilverStripe\Forms\GridField\GridField_URLHandler;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridField_HTMLProvider;
 use TractorCow\Fluent\Extension\FluentSiteTreeExtension;
-use Axllent\MetaEditor\Forms\MetaEditorDescriptionColumn;
 use SilverStripe\Forms\GridField\GridField_ColumnProvider;
 
 class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
@@ -79,9 +76,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
      */
     public function getColumnAttributes($gridField, $record, $columnName)
     {
-        if (!MetaEditorPermissions::canEdit($record)) {
-            return [];
-        }
+        // editor permission
 
         $errors = self::getErrors($record);
 
@@ -101,22 +96,11 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
      */
     public static function getErrors($record)
     {
-        $title_field = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_field',
-        );
-        $title_min = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_min_length',
-        );
-        $title_max = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_max_length',
-        );
+        $title_field = 'Title';
+        $title_min = 2;
+        $title_max = 180;
 
-        if (!MetaEditorPermissions::canEdit($record)) {
-            return [];
-        }
+        // editor permission
 
         $errors = [];
 
@@ -150,9 +134,10 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
         if ('MetaEditorFocusPointColumn' == $columnName) {
             $value = $gridField->getDataFieldValue(
                 $record,
-                Config::inst()->get(MetaEditor::class, 'meta_title_field'),
+                'Title',
             );
-            if (MetaEditorPermissions::canEdit($record)) {
+            // if permissions {
+
                 $title_field = TextField::create('MetaTitle');
                 $title_field->setName(
                     $this->getFieldName(
@@ -165,9 +150,9 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
                 $title_field->addExtraClass('form-control');
 
                 return $title_field->Field() . $this->getErrorMessages();
-            }
+            // }
 
-            return '<span class="non-editable">Meta tags not editable</span>';
+            // return '<span class="non-editable">Meta tags not editable</span>';
         }
     }
 
@@ -226,14 +211,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
         $modelClass = $gridField->getList()->dataClass;
         $modelClassDB = (new \ReflectionClass($modelClass))->getShortName();
 
-        $title_field = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_field',
-        );
-        $description_field = Config::inst()->get(
-            MetaEditor::class,
-            'meta_description_field',
-        );
+        $title_field = 'Title';
 
         $sitetree = $modelClassDB;
         $sitetree_live = $modelClassDB . '_Live';
@@ -289,13 +267,13 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
                             WHERE " . $identifier,
                         );
 
-                        if ($page->hasMethod('onAfterMetaEditorUpdate')) {
-                            $page->onAfterMetaEditorUpdate();
+                        if ($page->hasMethod('onAfterImageEditorUpdate')) {
+                            $page->onAfterImageEditorUpdate();
                         }
                     }
 
                     $record = self::getAllEditableRecords()->byID($page->ID);
-                    $errors = MetaEditorDescriptionColumn::getErrors($record);
+                    $errors = [];
 
                     return $this->ajaxResponse(
                         $fieldName . ' saved (' . strlen($val) . ' chars)',
@@ -321,43 +299,16 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
                             WHERE " . $identifier,
                         );
 
-                        if ($page->hasMethod('onAfterMetaEditorUpdate')) {
-                            $page->onAfterMetaEditorUpdate();
+                        if ($page->hasMethod('onAfterImageEditorUpdate')) {
+                            $page->onAfterImageEditorUpdate();
                         }
                     }
 
                     $record = self::getAllEditableRecords()->byID($page->ID);
-                    $errors = MetaEditorDescriptionColumn::getErrors($record);
+                    $errors = [];
 
                     return $this->ajaxResponse(true, ['errors' => $errors]);
                 }
-                // if ('MetaDescription' == $fieldName) {
-                //     // Update MetaDescription
-                //     DB::query(
-                //         "UPDATE {$sitetree} SET {$description_field} = {$sqlValue}
-                //         WHERE " . $identifier
-                //     );
-
-                //     if ($page->isPublished()) {
-                //         DB::query(
-                //             "UPDATE {$sitetree_live}
-                //             SET {$description_field} = {$sqlValue}
-                //             WHERE " . $identifier
-                //         );
-
-                //         if ($page->hasMethod('onAfterMetaEditorUpdate')) {
-                //             $page->onAfterMetaEditorUpdate();
-                //         }
-                //     }
-
-                //     $record = self::getAllEditableRecords()->byID($page->ID);
-                //     $errors = MetaEditorDescriptionColumn::getErrors($record);
-
-                //     return $this->ajaxResponse(
-                //         $description_field . ' saved (' . strlen($val) . ' chars)',
-                //         ['errors' => $errors]
-                //     );
-                // }
             }
         }
 
@@ -387,36 +338,12 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
 
     /**
      * Return all editable records
-     * Ignored hidden_page_types & non_editable_page_types
      *
      * @return DataList
      */
     public static function getAllEditableRecords()
     {
-        $hidden_page_types = Config::inst()->get(
-            MetaEditor::class,
-            'hidden_page_types',
-        );
-        $non_editable_page_types = Config::inst()->get(
-            MetaEditor::class,
-            'non_editable_page_types',
-        );
         $ignore = [];
-        if (!empty($hidden_page_types) && is_array($hidden_page_types)) {
-            foreach ($hidden_page_types as $class) {
-                $subclasses = ClassInfo::getValidSubClasses($class);
-                $ignore = array_merge(array_keys($subclasses), $ignore);
-            }
-        }
-        if (
-            !empty($non_editable_page_types) &&
-            is_array($non_editable_page_types)
-        ) {
-            foreach ($non_editable_page_types as $class) {
-                $subclasses = ClassInfo::getValidSubClasses($class);
-                $ignore = array_merge(array_keys($subclasses), $ignore);
-            }
-        }
 
         $list = Image::get();
 
@@ -434,14 +361,8 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
      */
     public function getErrorMessages()
     {
-        $title_min = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_min_length',
-        );
-        $title_max = Config::inst()->get(
-            MetaEditor::class,
-            'meta_title_max_length',
-        );
+        $title_min = 2;
+        $title_max = 180;
 
         return '<div class="meta-editor-errors">' .
             '<span class="meta-editor-message meta-editor-message-too-short">' .
