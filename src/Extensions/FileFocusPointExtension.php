@@ -1,8 +1,8 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Extensions;
+namespace Goldfinch\ImageEditor\Extensions;
 
-use Goldfinch\ImageSettings\Forms\ImageCoordsField;
+use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 use SilverStripe\ORM\DataExtension;
 
 class FileFocusPointExtension extends DataExtension

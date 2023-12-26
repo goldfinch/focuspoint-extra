@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Forms;
+namespace Goldfinch\ImageEditor\Forms;
 
 use ReflectionMethod;
 use SilverStripe\Assets\Image;
@@ -9,7 +9,7 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
-use Goldfinch\ImageSettings\Forms\ImageCoordsField;
+use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 
 class UploadFieldWithSettings
 {
@@ -59,11 +59,11 @@ class UploadFieldWithSettings
         }
 
         if (self::$record::class == Image::class && self::$record->exists()) {
-            // $imageSettings = $fieldList->flattenFields()->fieldByName($name . '_ImageSettings');
-            $imageSettings = self::getImageSettings();
+            // $ImageEditor = $fieldList->flattenFields()->fieldByName($name . '_ImageEditor');
+            $ImageEditor = self::getImageEditor();
 
-            if ($imageSettings) {
-                self::$fields = [$field, $imageSettings];
+            if ($ImageEditor) {
+                self::$fields = [$field, $ImageEditor];
             } else {
                 self::$fields = [$field];
             }
@@ -71,17 +71,17 @@ class UploadFieldWithSettings
             self::$fields = [$field];
         }
 
-        $fieldList->removeByName([$name . '_ImageSettings', $name]);
+        $fieldList->removeByName([$name . '_ImageEditor', $name]);
     }
 
-    public static function getImageSettings()
+    public static function getImageEditor()
     {
         $r = new ReflectionMethod(ImageFormFactory::class, 'getSpecsMarkup');
         $r->setAccessible(true);
         $imageSpecs = $r->invoke(new ImageFormFactory(), self::$record);
 
         return ToggleCompositeField::create(
-            self::$name . '_ImageSettings',
+            self::$name . '_ImageEditor',
             self::$title . ' Settings',
             [
                 ImageCoordsField::create(

@@ -1,17 +1,17 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Admin;
+namespace Goldfinch\ImageEditor\Admin;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\GridField\GridFieldConfig;
-use Goldfinch\ImageSettings\Forms\GridField\MetaEditorFocusPointColumn;
-use Goldfinch\ImageSettings\Forms\GridField\GridFieldManyManyFocusConfig;
+use Goldfinch\ImageEditor\Forms\GridField\MetaEditorFocusPointColumn;
+use Goldfinch\ImageEditor\Forms\GridField\GridFieldManyManyFocusConfig;
 
-class ImageSettingsAdmin extends ModelAdmin
+class ImageEditorAdmin extends ModelAdmin
 {
-    private static $url_segment = 'image-settings';
+    private static $url_segment = 'image-editor';
 
     private static $menu_title = 'Image settings';
 
@@ -23,7 +23,7 @@ class ImageSettingsAdmin extends ModelAdmin
 
     private static $menu_priority = -0.5;
 
-    private static $menu_icon_class = 'font-icon-database';
+    private static $menu_icon_class = 'font-icon-block-banner';
 
     public $showImportForm = true;
 
@@ -33,7 +33,7 @@ class ImageSettingsAdmin extends ModelAdmin
     {
         parent::init();
         Requirements::javascript(
-            'goldfinch/image-settings:client/dist/resources/assets/image-settings-admin.js',
+            'goldfinch/image-editor:client/dist/resources/assets/image-editor-admin.js',
         );
     }
 
@@ -72,7 +72,7 @@ class ImageSettingsAdmin extends ModelAdmin
     {
         $form = parent::getEditForm($id, $fields);
 
-        $form->addExtraClass('image-settings');
+        $form->addExtraClass('image-editor');
 
         return $form;
     }

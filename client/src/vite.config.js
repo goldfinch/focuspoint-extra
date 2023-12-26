@@ -65,9 +65,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [
       laravel({
         input: [
-          'resources/image-settings-style.scss',
-          'resources/image-settings.js',
-          'resources/image-settings-admin.js',
+          'resources/image-editor-style.scss',
+          'resources/image-editor.js',
+          'resources/image-editor-admin.js',
         ],
         refresh: true,
       }),

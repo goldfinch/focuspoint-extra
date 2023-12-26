@@ -1,9 +1,9 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Extensions;
+namespace Goldfinch\ImageEditor\Extensions;
 
 use SilverStripe\ORM\DataExtension;
-use Goldfinch\ImageSettings\Forms\ImageCoordsField;
+use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 
 class ImageExtension extends DataExtension
 {

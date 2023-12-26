@@ -1,17 +1,17 @@
 {
-  "resources/image-settings-admin.js": {
-    "file": "resources/assets/image-settings-admin.js",
+  "resources/image-editor-admin.js": {
+    "file": "resources/assets/image-editor-admin.js",
     "isEntry": true,
-    "src": "resources/image-settings-admin.js"
+    "src": "resources/image-editor-admin.js"
   },
-  "resources/image-settings-style.scss": {
-    "file": "resources/assets/image-settings-style.css",
+  "resources/image-editor-style.scss": {
+    "file": "resources/assets/image-editor-style.css",
     "isEntry": true,
-    "src": "resources/image-settings-style.scss"
+    "src": "resources/image-editor-style.scss"
   },
-  "resources/image-settings.js": {
-    "file": "resources/assets/image-settings.js",
+  "resources/image-editor.js": {
+    "file": "resources/assets/image-editor.js",
     "isEntry": true,
-    "src": "resources/image-settings.js"
+    "src": "resources/image-editor.js"
   }
 }

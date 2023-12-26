@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Forms\GridField;
+namespace Goldfinch\ImageEditor\Forms\GridField;
 
 use SilverStripe\ORM\DB;
 use SilverStripe\Assets\Image;
@@ -24,7 +24,10 @@ use TractorCow\Fluent\Extension\FluentSiteTreeExtension;
 use Axllent\MetaEditor\Forms\MetaEditorDescriptionColumn;
 use SilverStripe\Forms\GridField\GridField_ColumnProvider;
 
-class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridField_ColumnProvider, GridField_HTMLProvider, GridField_URLHandler
+class MetaEditorFocusPointColumn extends GridFieldDataColumns implements
+    GridField_ColumnProvider,
+    GridField_HTMLProvider,
+    GridField_URLHandler
 {
     /**
      * Augment Columns
@@ -84,8 +87,8 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
 
         return [
             'class' => count($errors)
-            ? 'has-warning meta-editor-error ' . implode(' ', $errors)
-            : 'has-success',
+                ? 'has-warning meta-editor-error ' . implode(' ', $errors)
+                : 'has-success',
         ];
     }
 
@@ -98,12 +101,18 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
      */
     public static function getErrors($record)
     {
-        $title_field = Config::inst()
-            ->get(MetaEditor::class, 'meta_title_field');
-        $title_min = Config::inst()
-            ->get(MetaEditor::class, 'meta_title_min_length');
-        $title_max = Config::inst()
-            ->get(MetaEditor::class, 'meta_title_max_length');
+        $title_field = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_field',
+        );
+        $title_min = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_min_length',
+        );
+        $title_max = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_max_length',
+        );
 
         if (!MetaEditorPermissions::canEdit($record)) {
             return [];
@@ -116,8 +125,10 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
         } elseif (strlen($record->{$title_field}) > $title_max) {
             $errors[] = 'meta-editor-error-too-long';
         } elseif (
-            $record->{$title_field}
-            && self::getAllEditableRecords()->filter($title_field, $record->{$title_field})->count() > 1
+            $record->{$title_field} &&
+            self::getAllEditableRecords()
+                ->filter($title_field, $record->{$title_field})
+                ->count() > 1
         ) {
             $errors[] = 'meta-editor-error-duplicate';
         }
@@ -139,7 +150,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
         if ('MetaEditorFocusPointColumn' == $columnName) {
             $value = $gridField->getDataFieldValue(
                 $record,
-                Config::inst()->get(MetaEditor::class, 'meta_title_field')
+                Config::inst()->get(MetaEditor::class, 'meta_title_field'),
             );
             if (MetaEditorPermissions::canEdit($record)) {
                 $title_field = TextField::create('MetaTitle');
@@ -147,8 +158,8 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                     $this->getFieldName(
                         $title_field->getName(),
                         $gridField,
-                        $record
-                    )
+                        $record,
+                    ),
                 );
                 $title_field->setValue($value);
                 $title_field->addExtraClass('form-control');
@@ -171,12 +182,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
      */
     protected function getFieldName($name, GridField $gridField, $record)
     {
-        return sprintf(
-            '%s[%s][%s]',
-            $gridField->getName(),
-            $record->ID,
-            $name
-        );
+        return sprintf('%s[%s][%s]', $gridField->getName(), $record->ID, $name);
     }
 
     /**
@@ -220,27 +226,31 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
         $modelClass = $gridField->getList()->dataClass;
         $modelClassDB = (new \ReflectionClass($modelClass))->getShortName();
 
-        $title_field = Config::inst()
-            ->get(MetaEditor::class, 'meta_title_field');
-        $description_field = Config::inst()
-            ->get(MetaEditor::class, 'meta_description_field');
+        $title_field = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_field',
+        );
+        $description_field = Config::inst()->get(
+            MetaEditor::class,
+            'meta_description_field',
+        );
 
-        $sitetree      = $modelClassDB;
+        $sitetree = $modelClassDB;
         $sitetree_live = $modelClassDB . '_Live';
 
         $fluent = false;
 
-        if (SiteTree::class == $modelClass)
-        {
-            $fluent        = Injector::inst()
-                ->get(SiteTree::class)
-                ->hasExtension(FluentSiteTreeExtension::class)
-            && Locale::get()->count();
+        if (SiteTree::class == $modelClass) {
+            $fluent =
+                Injector::inst()
+                    ->get(SiteTree::class)
+                    ->hasExtension(FluentSiteTreeExtension::class) &&
+                Locale::get()->count();
 
             if ($fluent) {
-                $sitetree      = 'SiteTree_Localised';
+                $sitetree = 'SiteTree_Localised';
                 $sitetree_live = 'SiteTree_Localised_Live';
-                $locale        = FluentState::singleton()->getLocale();
+                $locale = FluentState::singleton()->getLocale();
             }
         }
 
@@ -249,9 +259,9 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
 
             $errors = [];
 
-            $identifier = $fluent ?
-            "RecordID = {$page->ID} AND Locale = '{$locale}'" :
-            "ID = {$page->ID}";
+            $identifier = $fluent
+                ? "RecordID = {$page->ID} AND Locale = '{$locale}'"
+                : "ID = {$page->ID}";
 
             foreach ($params as $fieldName => $val) {
                 $val = trim(preg_replace('/\s+/', ' ', $val));
@@ -261,7 +271,6 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                     $sqlValue = 'NULL';
                 }
 
-
                 // Make sure the MenuTitle remains unchanged if NULL!
                 if ('Title' == $fieldName || 'Name' == $fieldName) {
                     $sitetree = 'File';
@@ -270,14 +279,14 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                     // Update MetaDescription
                     DB::query(
                         "UPDATE {$sitetree} SET {$fieldName} = {$sqlValue}
-                        WHERE " . $identifier
+                        WHERE " . $identifier,
                     );
 
                     if ($page->isPublished()) {
                         DB::query(
                             "UPDATE {$sitetree_live}
                             SET {$fieldName} = {$sqlValue}
-                            WHERE " . $identifier
+                            WHERE " . $identifier,
                         );
 
                         if ($page->hasMethod('onAfterMetaEditorUpdate')) {
@@ -290,24 +299,26 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
 
                     return $this->ajaxResponse(
                         $fieldName . ' saved (' . strlen($val) . ' chars)',
-                        ['errors' => $errors]
+                        ['errors' => $errors],
                     );
-                }
-                else if ('FocusPointX' == $fieldName || 'FocusPointY' == $fieldName) {
+                } elseif (
+                    'FocusPointX' == $fieldName ||
+                    'FocusPointY' == $fieldName
+                ) {
                     $sitetree = 'Image';
                     $sitetree_live = 'Image_Live';
 
                     // Update MetaDescription
                     DB::query(
                         "UPDATE {$sitetree} SET {$fieldName} = {$sqlValue}
-                        WHERE " . $identifier
+                        WHERE " . $identifier,
                     );
 
                     if ($page->isPublished()) {
                         DB::query(
                             "UPDATE {$sitetree_live}
                             SET {$fieldName} = {$sqlValue}
-                            WHERE " . $identifier
+                            WHERE " . $identifier,
                         );
 
                         if ($page->hasMethod('onAfterMetaEditorUpdate')) {
@@ -318,10 +329,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                     $record = self::getAllEditableRecords()->byID($page->ID);
                     $errors = MetaEditorDescriptionColumn::getErrors($record);
 
-                    return $this->ajaxResponse(
-                        true,
-                        ['errors' => $errors]
-                    );
+                    return $this->ajaxResponse(true, ['errors' => $errors]);
                 }
                 // if ('MetaDescription' == $fieldName) {
                 //     // Update MetaDescription
@@ -372,9 +380,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
         //     rawurlencode($message)
         // );
 
-        $response->setBody(
-            json_encode($data)
-        );
+        $response->setBody(json_encode($data));
 
         return $response;
     }
@@ -387,21 +393,28 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
      */
     public static function getAllEditableRecords()
     {
-        $hidden_page_types = Config::inst()
-            ->get(MetaEditor::class, 'hidden_page_types');
-        $non_editable_page_types = Config::inst()
-            ->get(MetaEditor::class, 'non_editable_page_types');
+        $hidden_page_types = Config::inst()->get(
+            MetaEditor::class,
+            'hidden_page_types',
+        );
+        $non_editable_page_types = Config::inst()->get(
+            MetaEditor::class,
+            'non_editable_page_types',
+        );
         $ignore = [];
         if (!empty($hidden_page_types) && is_array($hidden_page_types)) {
             foreach ($hidden_page_types as $class) {
                 $subclasses = ClassInfo::getValidSubClasses($class);
-                $ignore     = array_merge(array_keys($subclasses), $ignore);
+                $ignore = array_merge(array_keys($subclasses), $ignore);
             }
         }
-        if (!empty($non_editable_page_types) && is_array($non_editable_page_types)) {
+        if (
+            !empty($non_editable_page_types) &&
+            is_array($non_editable_page_types)
+        ) {
             foreach ($non_editable_page_types as $class) {
                 $subclasses = ClassInfo::getValidSubClasses($class);
-                $ignore     = array_merge(array_keys($subclasses), $ignore);
+                $ignore = array_merge(array_keys($subclasses), $ignore);
             }
         }
 
@@ -411,7 +424,7 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
             $list = $list->exclude('ClassName', $ignore); // remove error pages etc
         }
 
-        return $list;//->sort('Sort');
+        return $list; //->sort('Sort');
     }
 
     /**
@@ -421,8 +434,14 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
      */
     public function getErrorMessages()
     {
-        $title_min = Config::inst()->get(MetaEditor::class, 'meta_title_min_length');
-        $title_max = Config::inst()->get(MetaEditor::class, 'meta_title_max_length');
+        $title_min = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_min_length',
+        );
+        $title_max = Config::inst()->get(
+            MetaEditor::class,
+            'meta_title_max_length',
+        );
 
         return '<div class="meta-editor-errors">' .
             '<span class="meta-editor-message meta-editor-message-too-short">' .
@@ -432,8 +451,9 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                 [
                     'title_min' => $title_min,
                     'title_max' => $title_max,
-                ]
-            ) . '</span>' .
+                ],
+            ) .
+            '</span>' .
             '<span class="meta-editor-message meta-editor-message-too-long">' .
             _t(
                 self::class . '.TITLE_TOO_LONG',
@@ -441,13 +461,15 @@ class MetaEditorFocusPointColumn extends GridFieldDataColumns implements GridFie
                 [
                     'title_min' => $title_min,
                     'title_max' => $title_max,
-                ]
-            ) . '</span>' .
+                ],
+            ) .
+            '</span>' .
             '<span class="meta-editor-message meta-editor-message-duplicate">' .
             _t(
                 self::class . '.TITLE_DUPLICATE',
-                'This title is a duplicate of another page.'
-            ) . '</span>' .
+                'This title is a duplicate of another page.',
+            ) .
+            '</span>' .
             '</div>';
     }
 }

@@ -205,7 +205,7 @@
         this.updateGrid();
         $(this).closest('form').addClass('changed');
 
-        // this is for grideditable field within modeladmin (to trigger change on focuspoint within the grid (image-settings.js))
+        // this is for grideditable field within modeladmin (to trigger change on focuspoint within the grid (image-editor.js))
         if ($(this.getFieldSelector('x')).length) {
           $(this.getFieldSelector('x')).each((key, element) => {
             if (!$(element).hasClass('editable-column-field')) {

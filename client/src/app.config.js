@@ -2,22 +2,22 @@ export default function initCfg(command, mode, ssrBuild) {
   const dev = command === 'serve';
   const host = 'silverstripe.lh';
 
-  const buildAssetsDir = '../../../dist/ImageSettings/assets/';
+  const buildAssetsDir = '../../../dist/ImageEditor/assets/';
 
-  const ImageSettings = dev
-    ? '../../../dist/ImageSettings/assets/ImageSettings/'
+  const ImageEditor = dev
+    ? '../../../dist/ImageEditor/assets/ImageEditor/'
     : '';
-  const ImageSettings_images = dev
+  const ImageEditor_images = dev
     ? './images/'
-    : `${buildAssetsDir}ImageSettings/images/`;
+    : `${buildAssetsDir}ImageEditor/images/`;
 
   return {
     host,
     certs: `/Applications/MAMP/Library/OpenSSL/certs/${host}`,
 
     sassAdditionalData: `
-      $ImageSettings: '${ImageSettings}';
-      $ImageSettings_images: '${ImageSettings_images}';
+      $ImageEditor: '${ImageEditor}';
+      $ImageEditor_images: '${ImageEditor_images}';
     `,
   };
 }

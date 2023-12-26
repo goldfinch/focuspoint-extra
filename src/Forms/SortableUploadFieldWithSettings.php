@@ -1,12 +1,12 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Forms;
+namespace Goldfinch\ImageEditor\Forms;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\ToggleCompositeField;
 use Bummzack\SortableFile\Forms\SortableUploadField;
-use Goldfinch\ImageSettings\Forms\GridField\GridFieldManyManyFocusConfig;
+use Goldfinch\ImageEditor\Forms\GridField\GridFieldManyManyFocusConfig;
 
 class SortableUploadFieldWithSettings
 {
@@ -93,7 +93,7 @@ class SortableUploadFieldWithSettings
                         false,
                         $extraFields,
                     ),
-                )->addExtraClass('image-settings-attrs-grid'),
+                )->addExtraClass('image-editor-attrs-grid'),
             )->addExtraClass('mb-4');
 
             if ($imagesSettings) {

@@ -45,7 +45,7 @@ $fields->insertAfter('Title', $imageField);
 // $fields->addFieldsToTab(
 //   'Root.ImagesAttributes',
 //   [
-//       GridField::create('ImageAttributes', 'Images', $this->Images(), GridFieldManyManyFocusConfig::create(null, true))->addExtraClass('image-settings-attrs-grid'),
+//       GridField::create('ImageAttributes', 'Images', $this->Images(), GridFieldManyManyFocusConfig::create(null, true))->addExtraClass('image-editor-attrs-grid'),
 //   ]
 // );
 ```

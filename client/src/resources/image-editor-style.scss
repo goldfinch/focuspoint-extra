@@ -65,16 +65,14 @@
   display: inline-block;
 }
 
-.image-settings-attrs-grid.grid.grid-field.ss-gridfield:not(
-    .form-group--no-label
-  )
+.image-editor-attrs-grid.grid.grid-field.ss-gridfield:not(.form-group--no-label)
   > .grid-field__table,
-.image-settings-attrs-grid .table.grid-field__table {
+.image-editor-attrs-grid .table.grid-field__table {
   margin-top: 0 !important;
 }
 
-.cms-edit-form.image-settings,
-.image-settings-attrs-grid {
+.cms-edit-form.image-editor,
+.image-editor-attrs-grid {
   td.col-Title,
   td.col-Name {
     position: relative;

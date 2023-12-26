@@ -1,16 +1,24 @@
 ---
-Name: goldfinch-image-settings
+Name: goldfinch-image-editor
 ---
 SilverStripe\Assets\File:
   extensions:
-    - Goldfinch\ImageSettings\Extensions\FileFocusPointExtension
+    - Goldfinch\ImageEditor\Extensions\FileFocusPointExtension
 
 SilverStripe\Assets\Image:
   extensions:
-    - Goldfinch\ImageSettings\Extensions\ImageExtension
+    - Goldfinch\ImageEditor\Extensions\ImageExtension
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - "goldfinch/image-settings:client/dist/resources/assets/image-settings-style.css"
+    - "goldfinch/image-editor:client/dist/resources/assets/image-editor-style.css"
   extra_requirements_javascript:
-    - "goldfinch/image-settings:client/dist/resources/assets/image-settings.js"
+    - "goldfinch/image-editor:client/dist/resources/assets/image-editor.js"
+
+---
+Name: goldfinch-image-editor-admin-icon
+Only:
+  moduleexists: "goldfinch/enchantment"
+---
+Goldfinch\ImageEditor\Admin\ImageEditorAdmin:
+  menu_icon_class: "bi-images"

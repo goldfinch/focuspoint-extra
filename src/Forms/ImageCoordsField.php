@@ -1,6 +1,6 @@
 <?php
 
-namespace Goldfinch\ImageSettings\Forms;
+namespace Goldfinch\ImageEditor\Forms;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\View\ArrayData;
@@ -42,7 +42,7 @@ class ImageCoordsField extends FieldGroup
                 LiteralField::create(
                     'ImageCoordsGrid',
                     $previewImage->renderWith(
-                        'Goldfinch\ImageSettings\ImageCoordsGrid',
+                        'Goldfinch\ImageEditor\ImageCoordsGrid',
                     ),
                 ),
                 HiddenField::create(
@@ -65,7 +65,7 @@ class ImageCoordsField extends FieldGroup
                 LiteralField::create(
                     'ImageCoordsGrid',
                     $previewImage->renderWith(
-                        'Goldfinch\ImageSettings\ImageCoordsGrid',
+                        'Goldfinch\ImageEditor\ImageCoordsGrid',
                     ),
                 ),
                 TextField::create(

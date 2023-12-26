@@ -4,7 +4,7 @@
     $('body').append($('<div id="AltEditorCharCounter"></div>').hide());
 
     $(
-      '.image-settings fieldset.grid .ss-gridfield-item input, .image-settings fieldset.grid .ss-gridfield-item textarea',
+      '.image-editor fieldset.grid .ss-gridfield-item input, .image-editor fieldset.grid .ss-gridfield-item textarea',
     ).entwine({
       onkeydown(e) {
         if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {

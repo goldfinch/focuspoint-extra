@@ -1,10 +1,8 @@
 {
-    "name": "goldfinch/image-settings",
+    "name": "goldfinch/image-editor",
     "description": "",
     "type": "silverstripe-vendormodule",
-    "keywords": [
-        "silverstripe"
-    ],
+    "keywords": ["silverstripe"],
     "license": "MIT",
     "authors": [
         {
@@ -28,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Goldfinch\\ImageSettings\\": "src/"
+            "Goldfinch\\ImageEditor\\": "src/"
         }
     },
     "minimum-stability": "dev",
