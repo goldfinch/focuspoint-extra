@@ -11,7 +11,7 @@ use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
 use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 
-class UploadFieldWithSettings
+class EditableUploadField
 {
     public static $fields;
     public static $parent;

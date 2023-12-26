@@ -18,8 +18,8 @@ private static $owns = [
     'Images',
 ];
 
-...UploadFieldWithSettings::create('Image', 'Image', $fields, $this)->getFields(),
-...SortableUploadFieldWithSettings::create('Images', 'Images', $fields, $this)->getFields(),
+...EditableUploadField::create('Image', 'Image', $fields, $this)->getFields(),
+...EditableSortableUploadField::create('Images', 'Images', $fields, $this)->getFields(),
 ```
 
 
@@ -39,7 +39,7 @@ $imageField =  ImageCoordsField::create('Image.FocusPoint', 'Image-_1_-FocusPoin
 $fields->insertAfter('Title', $imageField);
 
 
-...UploadFieldWithSettings::create('Image', 'Image', $fields, $this)->getFields(),
+...EditableUploadField::create('Image', 'Image', $fields, $this)->getFields(),
 
 
 // $fields->addFieldsToTab(
