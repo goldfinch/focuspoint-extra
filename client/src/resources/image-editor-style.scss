@@ -74,12 +74,14 @@
 .cms-edit-form.image-editor,
 .image-editor-attrs-grid {
   td.col-Title,
+  td.has-warning,
   td.col-Name {
     position: relative;
     color: transparent;
   }
 
   td.col-Title input,
+  td.has-warning,
   td.col-Name input {
     position: absolute;
     top: 50%;
