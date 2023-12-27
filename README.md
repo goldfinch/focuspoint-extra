@@ -7,7 +7,7 @@
 
 Provides a full list of all available images for a quick Alt/Title, Filename and Focus Point update.
 
-Apart from that, it comes with two custom fields: `EditableUploadField`, `EditableSortableUploadField` (based on `UploadField`, `SortableUploadField`) enchanted with an inline editor for quick access and update, without leaving the page or making too many clicks. 
+Apart from that, it comes with two custom fields: `EditableUploadField`, `EditableSortableUploadField` (based on `UploadField`, `SortableUploadField`) enchanted with an inline editor for quick access and update, without leaving the page or making too many clicks. To more other additions: `ImageCoordsField` and `GridFieldManyManyFocusConfig`.
 
 ## Install
 
@@ -168,10 +168,11 @@ public function getCMSFields()
 - [stevie-mayhew/hasoneedit](https://github.com/stevie-mayhew/hasoneedit)
 - [jonom/focuspoint](https://github.com/jonom/silverstripe-focuspoint)
 
-**And thanks to:**
+**and thanks to:**
 
 - [jonom/silverstripe-image-coord](https://github.com/jonom/silverstripe-image-coord)
 - [seppzzz/silverstripe-image-coord](https://github.com/seppzzz/silverstripe-image-coord)
+- [axllent/silverstripe-meta-editor](https://github.com/axllent/silverstripe-meta-editor)
 
 ## License
 

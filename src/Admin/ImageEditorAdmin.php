@@ -21,7 +21,7 @@ class ImageEditorAdmin extends ModelAdmin
         ],
     ];
 
-    private static $menu_priority = -0.5;
+    private static $menu_priority = 5;
 
     private static $menu_icon_class = 'font-icon-block-banner';
 

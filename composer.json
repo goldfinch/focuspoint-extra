@@ -1,8 +1,15 @@
 {
     "name": "goldfinch/image-editor",
-    "description": "",
+    "description": "Image Editor for quick image alt/title, name and focus point updates",
     "type": "silverstripe-vendormodule",
-    "keywords": ["silverstripe"],
+    "keywords": [
+        "silverstripe",
+        "alt-title-image-update",
+        "focus-point",
+        "image-coords",
+        "gridfield-image-editor",
+        "image-editor-silverstripe"
+    ],
     "license": "MIT",
     "authors": [
         {
