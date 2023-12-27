@@ -159,6 +159,20 @@ public function getCMSFields()
     return $fields;
 }
 ```
+## Previews
+
+#### Image Editor admin
+![Image Editor admin](screenshots/admin.jpeg)
+#### Image edit page
+![Image edit page](screenshots/admin-edit.jpeg)
+#### Editable UploadField
+![Editable-UploadField](screenshots/editable-UploadField.jpeg)
+#### Editable SortableUploadField
+![Editable SortableUploadField](screenshots/editable-SortableUploadField.jpeg)
+#### Editable GridField
+![Editable GridField](screenshots/editable-grid.jpeg)
+#### Editable ImageCoords
+![Editable ImageCoords](screenshots/image-coords.jpeg)
 
 ## References
 
@@ -168,7 +182,7 @@ public function getCMSFields()
 - [stevie-mayhew/hasoneedit](https://github.com/stevie-mayhew/hasoneedit)
 - [jonom/focuspoint](https://github.com/jonom/silverstripe-focuspoint)
 
-**and thanks to:**
+*and thanks to*
 
 - [jonom/silverstripe-image-coord](https://github.com/jonom/silverstripe-image-coord)
 - [seppzzz/silverstripe-image-coord](https://github.com/seppzzz/silverstripe-image-coord)
