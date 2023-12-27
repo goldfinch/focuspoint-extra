@@ -17,15 +17,32 @@ class ImageCoordsField extends FieldGroup
 
     public function __construct(
         $name,
-        $XFieldName,
-        $YFieldName,
-        $xySumFieldName,
-        $image,
-        $width,
-        $height,
+        $XFieldName = null,
+        $YFieldName = null,
+        $xySumFieldName = 'filename',
+        $image = null,
+        $width = null,
+        $height = null,
         $cssGrid = false,
         $onlyCanvas = false,
     ) {
+        if (is_object($name)) {
+            $image = $name->$XFieldName();
+
+            if ($image && get_class($image) == Image::class) {
+                $name = $XFieldName;
+                $XFieldName = $name . '-_1_-FocusPointX';
+                $YFieldName = $name . '-_1_-FocusPointY';
+                $width = $image->getWidth();
+                $height = $image->getHeight();
+            }
+        } else {
+            // Example with plain data:
+
+            // $image = $this->Image();
+            // $imageField =  ImageCoordsField::create('Image.FocusPoint', 'Image-_1_-FocusPointX', 'Image-_1_-FocusPointY', 'filename', $image, $image->getWidth(), $image->getHeight());
+        }
+
         // Create the fields
         $previewImage = ArrayData::create([
             'Width' => $width,
@@ -60,7 +77,7 @@ class ImageCoordsField extends FieldGroup
             $fields = [
                 ($sumField = LiteralField::create(
                     $xySumFieldName,
-                    '<br><div class="sumField">mouseX 0.0 / mouseY 0.0</div><br>',
+                    '<div class="sumField">mouseX 0.0 / mouseY 0.0</div><br>',
                 )),
                 LiteralField::create(
                     'ImageCoordsGrid',
@@ -70,12 +87,12 @@ class ImageCoordsField extends FieldGroup
                 ),
                 TextField::create(
                     $XFieldName,
-                    $XFieldName,
+                    'Focus Point X',
                     $image->FocusPointX,
                 ),
                 TextField::create(
                     $YFieldName,
-                    $YFieldName,
+                    'Focus Point Y',
                     $image->FocusPointY,
                 ),
             ];

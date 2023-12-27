@@ -133,3 +133,24 @@
     display: none;
   }
 }
+
+.goldfinch-grid-many-many-focus td {
+  cursor: default;
+}
+
+.goldfinch-grid-many-many-focus th:nth-of-type(4),
+.goldfinch-grid-many-many-focus th:nth-of-type(5) {
+  display: none;
+}
+
+.goldfinch-grid-many-many-focus td:nth-of-type(4),
+.goldfinch-grid-many-many-focus td:nth-of-type(5) {
+  display: none;
+}
+
+.goldfinch-grid-many-many-focus td:nth-of-type(2),
+.goldfinch-grid-many-many-focus td:nth-of-type(3),
+.goldfinch-grid-many-many-focus td:nth-of-type(6) {
+  line-height: 0 !important;
+  color: transparent !important;
+}
