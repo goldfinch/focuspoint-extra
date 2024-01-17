@@ -37,24 +37,6 @@ class ImageEditorAdmin extends ModelAdmin
         );
     }
 
-    public function getList()
-    {
-        $list = parent::getList();
-
-        // ..
-
-        return $list;
-    }
-
-    public function getSearchContext()
-    {
-        $context = parent::getSearchContext();
-
-        // ..
-
-        return $context;
-    }
-
     protected function getGridFieldConfig(): GridFieldConfig
     {
         $config = GridFieldManyManyFocusConfig::create(

@@ -11,8 +11,11 @@ use Goldfinch\ImageEditor\Forms\GridField\GridFieldManyManyFocusConfig;
 class EditableSortableUploadField
 {
     public static $fields;
+
     public static $parent;
+
     public static $name;
+
     public static $record;
 
     public function isOneOrMany()

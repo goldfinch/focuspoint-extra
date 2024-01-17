@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import autoprefixer from 'autoprefixer';
 import * as path from 'path';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import fs from 'fs';
 import initCfg from './app.config.js';
 
@@ -38,29 +37,6 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         },
       },
     },
-    // build: {
-    //   emptyOutDir: true,
-    //   outDir: '../dist',
-    //   rollupOptions: {
-    //     output: {
-    //       entryFileNames: `[name].js`,
-    //       chunkFileNames: `js/[name].js`,
-    //       assetFileNames: (assetInfo) => {
-    //         if (assetInfo.name.endsWith('.css')) {
-    //           return '[name][extname]'
-    //         } else if (
-    //           assetInfo.name.match(/(\.(woff2?|eot|ttf|otf)|font\.svg)(\?.*)?$/)
-    //         ) {
-    //           return 'fonts/[name][extname]'
-    //         } else if (assetInfo.name.match(/\.(jpg|png|svg)$/)) {
-    //           return 'images/[name][extname]'
-    //         }
-
-    //         return 'js/[name][extname]'
-    //       }
-    //     }
-    //   }
-    // },
 
     plugins: [
       laravel({

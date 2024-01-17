@@ -8,8 +8,8 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
 use Goldfinch\ImageEditor\Forms\ImageCoordsField;
+use SilverStripe\AssetAdmin\Forms\ImageFormFactory;
 
 class EditableUploadField
 {

@@ -8,7 +8,6 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\HiddenField;
-use SilverStripe\View\Requirements;
 use SilverStripe\Forms\LiteralField;
 
 class ImageCoordsField extends FieldGroup

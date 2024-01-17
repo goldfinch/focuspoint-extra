@@ -2,8 +2,8 @@
 
 namespace Goldfinch\ImageEditor\Extensions;
 
-use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 use SilverStripe\ORM\DataExtension;
+use Goldfinch\ImageEditor\Forms\ImageCoordsField;
 
 class FileFocusPointExtension extends DataExtension
 {
