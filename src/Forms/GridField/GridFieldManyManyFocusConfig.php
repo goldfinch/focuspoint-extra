@@ -72,7 +72,9 @@ class GridFieldManyManyFocusConfig extends GridFieldConfig
                     'title' => 'Focus Point',
                     'field' => LiteralField::class,
                     'callback' => function ($record, $columnName, $gridField) {
-                        $gridField->addExtraClass('goldfinch-grid-many-many-focus');
+                        $gridField->addExtraClass(
+                            'goldfinch-grid-many-many-focus',
+                        );
                         if (
                             in_array(
                                 'ss-gridfield-editable',

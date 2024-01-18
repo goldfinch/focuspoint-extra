@@ -155,6 +155,9 @@
   color: transparent !important;
 }
 
-.goldfinch-grid-many-many-focus.grid.grid-field.ss-gridfield:not(.form-group--no-label)>.grid-field__table {
+.goldfinch-grid-many-many-focus.grid.grid-field.ss-gridfield:not(
+    .form-group--no-label
+  )
+  > .grid-field__table {
   margin-top: 0 !important;
 }
