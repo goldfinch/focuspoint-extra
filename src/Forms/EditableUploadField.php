@@ -97,8 +97,8 @@ class EditableUploadField
                     false,
                     true,
                 ),
-                TextField::create(self::$name . '-_1_-Title', 'Alt / Title'),
-                TextField::create(self::$name . '-_1_-Name', 'Filename'),
+                TextField::create(self::$name . '-_1_-Title', 'Alt / Title', self::$record ? self::$record->Title : ''),
+                TextField::create(self::$name . '-_1_-Name', 'Filename', self::$record ? self::$record->Name : ''),
                 LiteralField::create(
                     self::$name . 'ImageInfo',
                     '<div class="form__fieldgroup form__field-holder field"><p><a href="' .
