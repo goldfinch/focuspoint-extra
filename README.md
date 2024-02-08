@@ -11,7 +11,7 @@ Apart from that, it comes with two custom fields: `EditableUploadField`, `Editab
 
 ## Install
 
-```
+```bash
 composer require goldfinch/image-editor
 ```
 
