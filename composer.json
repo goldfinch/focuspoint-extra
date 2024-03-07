@@ -21,7 +21,7 @@
         "php": ">=8.0",
         "silverstripe/framework": "^5.0",
         "silverstripe/admin": "^2.0",
-        "goldfinch/helpers": "^1.0",
+        "goldfinch/helpers": "^2.0",
         "bummzack/sortablefile": "^2.0",
         "symbiote/silverstripe-gridfieldextensions": "^4",
         "stevie-mayhew/hasoneedit": "^2.2",
