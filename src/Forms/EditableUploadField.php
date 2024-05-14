@@ -5,7 +5,9 @@ namespace Goldfinch\ImageEditor\Forms;
 use ReflectionMethod;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\TextField;
+use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Versioned\Versioned;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use Goldfinch\ImageEditor\Forms\ImageCoordsField;
@@ -60,7 +62,19 @@ class EditableUploadField
 
         $r = self::$record;
 
-        if ($r::class == Image::class && $r->exists()) {
+        // temp fix, drafted images needs to be submited without ImagEeditor (Extension '' is not allowed)
+        if ($parent->getRelationType($name) == 'has_one') {
+            $postVars = Controller::curr()->getRequest()->postVars();
+            if (isset($postVars[$name]) && isset($postVars[$name]['Files']) && count($postVars[$name]['Files']) === 1) {
+                if ((int) current($postVars[$name]['Files']) != self::$record->ID) {
+                    $reuploadNewImage = true;
+                }
+            }
+        }
+
+        // $imageEditorHint = LiteralField::create('ImageEditorHint', 'Refresh page to load image editor');
+
+        if (!isset($reuploadNewImage) && $r::class == Image::class && $r->exists()) {
             // $ImageEditor = $fieldList->flattenFields()->fieldByName($name . '_ImageEditor');
             $ImageEditor = self::getImageEditor();
 
@@ -81,7 +95,8 @@ class EditableUploadField
         $r = new ReflectionMethod(ImageFormFactory::class, 'getSpecsMarkup');
         $r->setAccessible(true);
         $imageSpecs = $r->invoke(new ImageFormFactory(), self::$record);
-
+        // dd(Versioned::get_by_stage(self::$record, Versioned::DRAFT)->byID(self::$record->ID));
+        // dd(self::$record->isLatestDraftVersion(self::$record, self::$record->ID));
         return ToggleCompositeField::create(
             self::$name . '_ImageEditor',
             self::$title . ' Editor',
